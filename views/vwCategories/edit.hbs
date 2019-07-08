@@ -1,0 +1,46 @@
+<form action="/categories/update" method="POST">
+<div class="card shadow">
+  <h5 class="card-header"> Edit Category</h5>
+  <div class="card-body">
+    {{#if this.error}}
+      <div class="alert alert-danger" role="alert">
+        <a href="/categories" class="alert-link">Click</a> để xem lại danh sách!!
+      </div>
+    {{else}}
+         <div class="form-group">
+            <label for="txtCatID">#</label>
+            <input type="text" readonly class="form-control" id="txtCatID" name="CatID" value="{{this.category.CatID}}">
+        </div>
+        <div class="form-group">
+          <label for="txtCatName">Category name</label>
+          <input type="text" class="form-control" id="txtCatName" name="CatName" placeholder="name" value="{{this.category.CatName}}">
+        </div>
+          <label for=""> BTV quản lí: <strong style="color: red;">{{this.manager.f_Username}}</strong></label>
+        <div class="form-group">
+         <a class="btn btn-secondary" data-toggle="collapse" href="#Editer">Change</a>
+
+           <select class="collapse" id="Editer" name="EditerID" style="width: 250px; height:45px;">
+          {{#each this.AssignCate}}
+            <option value="{{f_ID}}">{{f_Username}} - {{f_Name}}</option>
+          {{/each}}
+        </select>
+        </div>
+        
+      </div>
+       {{/if}}
+        <div class="card-footer text-right"> 
+          <a class="btn btn-outline-primary" href="/categories" role="button" title="back">
+              <i class="fa fa-backward" aria-hidden="true"></i>List
+          </a>
+          {{#unless this.error}}
+        <button type="submit" class="btn btn-danger" formaction="/categories/delete">
+          <i class="fa fa-trash-o" aria-hidden="true"></i>Delete
+        </button>
+        <button type="submit" class="btn btn-success">
+          <i class="fa fa-check" aria-hidden="true"></i>Save
+        </button>
+          {{/unless}}
+      </div>
+    </div>
+  </form>
+    

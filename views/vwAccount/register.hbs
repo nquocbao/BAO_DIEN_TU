@@ -1,0 +1,155 @@
+{{#section 'css'}}
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+  <style>
+    body {
+      height:100%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-image: url('http://media.idownloadblog.com/wp-content/uploads/2016/06/macOS-Sierra-Wallpaper-Macbook-Wallpaper.jpg');
+    } 
+    .card{
+      margin: auto;
+      color: #fff;
+      /* background-color: rgba(0,0,0,0.5) !important;*/
+      background-color: rgba(0,0,0,0.4) !important;
+    }
+}
+  </style>
+{{/section}}
+
+
+{{#section 'js'}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script>
+  $(function () {
+
+    $('#txtDOB').datetimepicker({
+      // format: 'd/m/Y H:i'
+      format: 'd/m/Y',
+      timepicker: false,
+      mask: true,
+    });
+
+
+     //$.validator.addMethod('validDate', function (value, element)
+     //{
+     //return this.optional(element) || moment(value, 'DD/MM/YYYY').isValid();
+     //});
+
+    $('#registerForm').validate({
+    // onkeyup: true,
+      rules: {
+        f_Username: {
+          required: true,
+           //remote: {
+           // url: '/account/is-available',
+           // data: {
+           //   user: function () {
+            //    return $('#txtUsername').val();
+            //  }
+           // }
+          //}
+          },
+           password: {
+          required: true,
+          minlength: 6
+        },
+        confirm: {
+          required: true,
+          equalTo: $('[name="password"]')
+        },
+        f_Name: {
+          required: true,
+        },
+        f_Email: {
+          required: true,
+          email: true
+        },
+        dob: {
+          required: true,
+          //validDate: true
+        },
+      },
+      messages: {
+        f_Username: {
+          required: 'Your username is required.'
+        },
+        password: {
+          required: 'Your password is required.',
+          minlength: 'Your password must have at least 6 characters.'
+        },
+        confirm: {
+          required: 'Your password does not match.',
+          equalTo: 'Your password does not match.'
+        },
+        f_Name: {
+          required: 'Valid full name is required.',
+        },
+        f_Email: {
+          required: 'Please enter a valid email address.',
+          email: 'Please enter a valid email address.'
+        },
+        dob: {
+          required: 'Valid date of birth is required.',
+           //validDate: 'Please enter a valid date in the format DD/MM/YYYY'
+        },
+      },
+      errorElement: 'small',
+      errorClass: 'help-block text-warning',
+      validClass: 'is-valid',
+      highlight: function (e) {
+        $(e).removeClass('is-valid').addClass('is-invalid');
+      },
+      unhighlight: function (e) {
+        $(e).removeClass('is-invalid').addClass('is-valid');
+      },
+    });
+  })
+</script>
+{{/section}}
+<body>
+<form action="" method="POST" id="registerForm" novalidate>
+  <div class="card shadow col-sm-7" style="margin: auto;">
+    <div class="card-body">
+      <div>
+         <h2 class="mb-3 text-center">Register</h>
+      </div>
+      <hr style="border-color: #fff;" class="w-50">
+      <div class="form-group">
+        <label for="txtUsername">Username</label>
+        <input type="text" class="form-control form-control-sm" placeholder="Username" id="txtUsername" name="f_Username">
+      </div>
+      <div class="form-group">
+        <label for="txtPassword">Password</label>
+        <input type="password" class="form-control form-control-sm" id="txtPassword" placeholder="Password" name="password">
+      </div>
+      <div class="form-group">
+        <label for="txtConfirm">Confirm</label>
+        <input type="password" class="form-control form-control-sm" id="txtConfirm" placeholder="Confirm Password" name="confirm">
+      </div>
+
+      {{!-- <hr class="mb-3">
+      <h5 class="mb-3">Information</h5> --}}
+      <div class="form-group">
+        <label for="txtName">Name</label>
+        <input type="text" class="form-control form-control-sm" placeholder="Full name" id="txtName" name="f_Name">
+      </div>
+      <div class="form-group">
+        <label for="txtEmail">Email</label>
+        <input type="text" class="form-control form-control-sm" placeholder="Email Address" id="txtEmail" name="f_Email">
+      </div>
+      <div class="form-group">
+        <label for="txtDOB">Date of birth</label>
+        <input type="text" class="form-control form-control-sm" id="txtDOB" name="dob">
+      </div>
+    </div>     
+    <div class="text-right mb-3">
+      <button type="submit" class="btn btn-primary mr-3">Submit</button>
+       <hr style="border-color: #fff;" class="w-50">
+    </div>
+  </div>
+</form>
+</body>

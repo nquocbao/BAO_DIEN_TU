@@ -1,0 +1,38 @@
+<div class="card">
+  <h2 class="card-header text-center">
+    Categories
+  </h2>
+ <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">BTV Quản Lí </th>
+      <th scope="col" class="text-right">
+        <a class="btn btn-outline-primary" href="/categories/assigned" role="button" title="Add">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Phân công chuyên mục
+        </a>
+        <a class="btn btn-outline-success" href="/categories/add" role="button" title="Add">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Add Category
+        </a>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each this.categories}}
+       <tr>
+           <th scope="row">{{CatID}}</th>
+           <td>{{CatName}}</td>
+           <td>{{f_Username}}</td>
+           <td class="text-right">
+              <a class="btn btn-primary btn-sm" href="/categories/edit/{{CatID}}" role="button" title="Edit">
+                   <i class="fa fa-pencil" aria-hidden="true"></i>
+                </a>
+           </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>

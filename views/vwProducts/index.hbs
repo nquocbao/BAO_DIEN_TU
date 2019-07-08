@@ -1,0 +1,297 @@
+<div class="container">
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#home">Đã xuất bản</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#menu1">Chờ xuất bản</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#menu2">Chưa được duyệt</a>
+    </li>
+     <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#menu3">Bị từ chối</a>
+    </li>
+  </ul>
+ {{#if isAuthenticated}}
+<script>
+var id = {{authUser.f_ID}};
+var type = {{authUser.f_Permission}};
+</script>
+{{/if}}
+
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div id="home" class="container tab-pane active"><br>
+    {{!--  --}}
+<form method="POST">
+<div class="card">
+  <h2 class="card-header text-center">
+    Danh sách bài viết
+  </h2>
+ <table class="table table-hover">
+  <thead>
+    <tr class="text-center">
+      <th scope="col">#</th>
+      <th scope="col">Title Name</th>
+      <th scope="col">Main Content</th>
+      <th scope="col">Date Summitted</th>
+      <th scope="col">Avatar</th>
+      <th scope="col">View</th>
+      <th scope="col">Category</th>
+       <th scope="col">Premium</th>
+      <th scope="col" class="text-right">
+        <a class="btn btn-outline-success" href="/products/add" role="button" title="Add">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </a>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each this.products}}
+    {{#if_eq status 2}}
+       <tr>
+           <th scope="row">{{ProID}}</th>
+           <td>{{TitleName}}</td>
+           <td>{{MainContent}}</td>
+           <td>{{DateSummitted}}</td>
+           <td class="text-center" >
+              <img src="/imgs/{{Avatar}}" alt="" style="width: 90px;"> 
+            </td>
+           <td class="text-center">{{View}}</td>
+           <td class="text-center">{{CatName}}</td>
+            <td class="text-center">{{TypePro}}</td>
+           <td class="text-right">
+              <a class="btn btn-warning btn-sm " href="/products/full/{{ProID}}/sp" role="button" title="Xem bài viết">
+                 <i class="fa fa-battery-full"></i>
+              </a>
+               <script>
+                if(type == 1  && {{UserID}} == id)
+               document.write(`
+               <button class="btn btn-success btn-sm mt-3" type="submit" title="Nâng cấp premium"
+                  formaction="/products/vip/{{ProID}}">
+                  &nbsp;<i class="fa fa-plus"></i>&nbsp;
+              </button>
+              <button class="btn btn-danger btn-sm mt-3" type="submit" title="bỏ premium" 
+                formaction="/products/unvip/{{ProID}}">
+                &nbsp;<i class="fa fa-trash"></i>&nbsp;
+              </button>`);  
+               </script> 
+              {{!-- <button class="btn btn-danger btn-sm mt-3" type="submit" title="Delete" formaction="/products/delete/{{ProID}}">
+                &nbsp;<i class="fa fa-trash"></i>&nbsp;
+              </button> --}}
+           </td>
+      </tr>
+       {{/if_eq }}
+    {{/each}}
+  </tbody>
+</table>
+</div>
+</form>
+    {{!--  --}}
+    </div>
+    <div id="menu1" class="container tab-pane fade"><br>
+      {{!--  --}}
+      <form method="POST">
+<div class="card">
+  <h2 class="card-header text-center">
+Danh sách bài viết
+  </h2>
+ <table class="table table-hover">
+  <thead>
+    <tr class="text-center">
+      <th scope="col">#</th>
+      <th scope="col">Title Name</th>
+      <th scope="col">Main Content</th>
+      <th scope="col">Date Summitted</th>
+      <th scope="col">Avatar</th>
+      <th scope="col">Category</th>
+      <th scope="col" class="text-right">
+        <a class="btn btn-outline-success" href="/products/add" role="button" title="Add">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </a>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each this.products}}
+    {{#if_eq status 1}}
+       <tr>
+           <th scope="row">{{ProID}}</th>
+           <td>{{TitleName}}</td>
+           <td>{{MainContent}}</td>
+           <td>{{DateSummitted}}</td>
+           <td class="text-center" >
+              <img src="/imgs/{{Avatar}}" alt="" style="width: 90px;"> 
+            </td>
+           <td class="text-center">{{CatName}}</td>
+           <td class="text-right">
+              <a class="btn btn-warning btn-sm " href="/products/full/{{ProID}}/sp" role="button" title="Xem bài viết">
+                 <i class="fa fa-battery-full"></i>
+              </a>
+              <script>
+                //if(({{status}} == 0 || {{status}} == -1) && {{UserID}} == id)
+              // document.write(`<a class="btn btn-primary btn-sm mt-3" href="/products/edit/{{ProID}}" 
+                            //  role="button" title="Edit">&nbsp;<i class="fa fa-pencil" aria-hidden="true">
+                             // </i>&nbsp;</a>`); 
+                if({{status}} == 1 && type == 1  && {{UserID}} == id)
+                document.write(`<button class="btn btn-success btn-sm mt-3" type="submit" title="Duyệt bài viết" formaction="/products/checkpass/{{ProID}}">
+                                &nbsp;<i class="fa fa-check"></i>
+                                </button>`); 
+               </script>
+              
+           </td>
+      </tr>
+       {{/if_eq }}
+    {{/each}}
+  </tbody>
+</table>
+</div>
+</form>
+      {{!--  --}}
+    </div>
+    <div id="menu2" class="container tab-pane fade"><br>
+    {{!--  --}}
+     <form method="POST">
+<div class="card">
+  <h2 class="card-header text-center">
+    Danh sách bài viết
+  </h2>
+ <table class="table table-hover">
+  <thead>
+    <tr class="text-center">
+      <th scope="col">#</th>
+      <th scope="col">Title Name</th>
+      <th scope="col">Main Content</th>
+      <th scope="col">Date Summitted</th>
+      <th scope="col">Avatar</th>
+      <th scope="col">Category</th>
+      <th scope="col" class="text-right">
+        <a class="btn btn-outline-success" href="/products/add" role="button" title="Add">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </a>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each this.products}}
+    {{#if_eq status 0}}
+       <tr>
+           <th scope="row">{{ProID}}</th>
+           <td>{{TitleName}}</td>
+           <td>{{MainContent}}</td>
+           <td>{{DateSummitted}}</td>
+           <td class="text-center" >
+              <img src="/imgs/{{Avatar}}" alt="" style="width: 90px;"> 
+            </td>
+           <td class="text-center">{{CatName}}</td>
+           <td class="text-right">
+              <a class="btn btn-warning btn-sm " href="/products/full/{{ProID}}/sp" role="button" title="Xem bài viết">
+                 <i class="fa fa-battery-full"></i>
+              </a>
+              <script>
+                if({{UserID}} == id && type == 2)
+               document.write(`<a class="btn btn-primary btn-sm mt-3" href="/products/edit/{{ProID}}" 
+                              role="button" title="Edit">&nbsp;<i class="fa fa-pencil" aria-hidden="true">
+                              </i>&nbsp;</a>`); 
+               if({{status}} == 0 && type == 3 && {{EditerID}} == id)
+                document.write(`<div><button class="btn btn-success btn-sm mt-3" type="submit" title="Chờ xuất bản" 
+                                formaction="/products/CheckEditor/{{ProID}}">
+                                &nbsp;<i class="fa fa-check"></i>
+                                </button></div>
+                                <div>
+                      <a  class="btn btn-danger btn-sm mt-3" data-toggle="collapse" href="#err{{ProID}}" title="Báo lỗi"> &nbsp;
+                      <i class="fa fa-exclamation-circle"></i></a>
+                      <div id="err{{ProID}}"  class="collapse mt-2">
+                      <form action="" method="POST">
+                      <textarea name="Comment" cols="30" rows="4" placeholder="Nhận xét bài viết ..." ></textarea>
+                      <button  type="submit" class="btn btn-primary btn-sm mt-3" 
+                      formaction="/products/ErrorEditor/{{ProID}}">Sent</button>               
+                      </form> </div></div>`); 
+              if(type == 1 && {{UserID}} == id)
+                document.write(`<button class="btn btn-success btn-sm mt-3" type="submit" title="Duyệt bài viết" formaction="/products/checkpass/{{ProID}}">
+                                &nbsp;<i class="fa fa-check"></i>
+                                </button>`);                         
+               </script>
+               {{!--   --}}
+           </td>
+      </tr>
+       {{/if_eq }}
+    {{/each}}
+  </tbody>
+</table>
+</div>
+</form>
+    {{!--  --}}
+    </div>
+    <div id="menu3" class="container tab-pane fade"><br>
+       <form method="POST">
+<div class="card">
+  <h2 class="card-header text-center">
+    Danh sách bài viết
+  </h2>
+ <table class="table table-hover">
+  <thead>
+    <tr class="text-center">
+      <th scope="col">#</th>
+      <th scope="col">Title Name</th>
+      <th scope="col">Main Content</th>
+      <th scope="col">Date Summitted</th>
+      <th scope="col">Avatar</th>
+      <th scope="col">Category</th>
+        <th scope="col">Comment</th>
+      <th scope="col" class="text-right">
+        <a class="btn btn-outline-success" href="/products/add" role="button" title="Add">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </a>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each this.products}}
+    {{#if_eq status -1}}
+       <tr>
+           <th scope="row">{{ProID}}</th>
+           <td>{{TitleName}}</td>
+           <td>{{MainContent}}</td>
+           <td>{{DateSummitted}}</td>
+           <td class="text-center" >
+              <img src="/imgs/{{Avatar}}" alt="" style="width: 90px;"> 
+            </td>
+           <td class="text-center">{{CatName}}</td>
+           <td class="text-center">{{Comment}}</td>
+           <td class="text-right">
+              <a class="btn btn-warning btn-sm " href="/products/full/{{ProID}}/sp" role="button" title="Xem bài viết">
+                 <i class="fa fa-battery-full"></i>
+              </a>
+              <script>
+                if(({{status}} == 0 || {{status}} == -1) && {{UserID}} == id)
+               document.write(`<a class="btn btn-primary btn-sm mt-3" href="/products/edit/{{ProID}}" 
+                              role="button" title="Edit">&nbsp;<i class="fa fa-pencil" aria-hidden="true">
+                              </i>&nbsp;</a>`); 
+                 if(type == 3 && {{EditerID}} == id)
+               document.write(`<button class="btn btn-success btn-sm mt-3" type="submit" title="Chờ xuất bản" 
+                            formaction="/products/CheckEditor/{{ProID}}">
+                               &nbsp;<i class="fa fa-check"></i>
+                               </button>`);
+                  if(type == 1  && {{UserID}} == id)
+                document.write(`<button class="btn btn-success btn-sm mt-3" type="submit" title="Duyệt bài viết" formaction="/products/checkpass/{{ProID}}">
+                                &nbsp;<i class="fa fa-check"></i>
+                                </button>`);   
+               </script>
+              {{!-- <button class="btn btn-danger btn-sm mt-3" type="submit" title="Delete" formaction="/products/delete/{{ProID}}">
+                &nbsp;<i class="fa fa-trash"></i>&nbsp;
+              </button> --}}
+           </td>
+      </tr>
+       {{/if_eq }}
+    {{/each}}
+  </tbody>
+</table>
+</div>
+</form>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,165 @@
+{{#section 'css'}}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/css/fileinput.min.css" media="all"
+  rel="stylesheet" type="text/css" />
+{{/section}}
+
+{{#section 'js'}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.js"></script>
+<script
+  src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ezd73nxbzc7bu6e86g2l82jbbffke0mwevwrnyvc5q8h89j6"></script>
+  <script>
+  $(function () {
+    $('#addproductForm').validate({
+      rules: {
+        TitleName: {
+          required: true,
+        },
+        MainContent: {
+          required: true,
+          },
+        Avatar: {
+          required: true,
+        },
+        TagPro: 
+        {
+          required: true,
+        },
+          
+      },
+      messages: {
+        TitleName: {
+          required: 'Bạn chưa nhập tiêu đề.'
+        },
+        MainContent: {
+          required: 'Bạn chưa nhập nội dung chính.'
+        },
+         Avatar: {
+          required: 'Bạn chưa chọn ảnh đại diện cho bài viết.'
+        },
+         TagPro: 
+        {
+          required: 'Bạn chưa thêm tag cho bài viết',
+        },
+      },
+      errorElement: 'small',
+      errorClass: 'help-block text-danger',
+      validClass: 'is-valid',
+      highlight: function (e) {
+        $(e).removeClass('is-valid').addClass('is-invalid');
+      },
+      unhighlight: function (e) {
+        $(e).removeClass('is-invalid').addClass('is-valid');
+      },
+    });
+  })
+</script>
+<script>
+  $(function () {
+
+    $('#fuMain').fileinput({
+      theme: 'fa',
+      dropZoneEnabled: false,
+      allowedFileExtensions: ['png', 'jpg', 'gif'],
+      uploadClass: 'btn btn-success',
+      uploadUrl: '/upload',
+      uploadAsync: false,
+    });
+
+    tinymce.init({
+      selector: '#txtFullContent',
+      menubar: false,
+      height: 600,
+      plugins: 'paste image link autolink lists table media',
+      toolbar: [
+        'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright',
+        'forecolor backcolor',
+        'table link image media',
+        // 'paste'
+      ],
+      image_caption: true,
+    });
+  })
+</script>
+{{/section}}
+<form action="" method="POST" id="addproductForm">
+  <div class="card shadow">
+    <div class="card-header bg-info text-white text-center py-2">
+        <h3><i class="fas fa fa-plus-square"></i>  Đăng Bài Viết </h3>
+    </div>
+    <div class="card-body">
+      {{!-- gan nhan   --}}
+      {{!-- <div class="text-right">
+          <a class="btn btn-secondary" data-toggle="collapse" href="#tag"> &nbsp;Gán nhãn cho bài viết</a>
+            <div id="tag"  class="collapse mt-2">
+              <form action="" method="POST">
+                <select name="TagID" style="width: 220px; height:35px;" class="mt-2">
+                {{#each this.addtag}}
+                {{#if_eq TypeTag 2}}
+                <option value="{{TagID}}">{{TagName}}</option>
+                {{/if_eq}}
+               {{/each}}
+        </select>
+              <div class="text-right">
+              <button  type="submit" class="btn btn-primary btn-sm mt-2" 
+               formaction="/products/ErrorEditor/{{ProID}}">Choose</button>       
+              </div>                          
+              </form>
+            </div>
+        </div> --}}
+      {{!--  --}}
+      <div>
+         <label for="" class="mt-4">Chọn tên chuyên mục</label>
+      </div>
+      <div class="form-group">
+       <select name="CatID" style="width: 180px; height:35px;">
+          {{#each addproducts}}
+            <option value="{{CatID}}">{{CatID}} - {{CatName}}</option>
+          {{/each}}
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="txtTitleName">Tiêu đề</label>
+        <textarea class="form-control" id="txtTilteName" name="TitleName"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="txtMainContent">Nội dung chính</label>
+        <textarea class="form-control" id="txtMainContent" name="MainContent"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="fuMain">Upload ảnh</label>
+        <div class="file-loading">
+          <input id="fuMain" name="fuMain" type="file" multiple>
+        </div>
+      </div>
+      <div class="form-group">
+        <div>
+           <label for="">Chọn ảnh đại diện</a>
+        </div>
+        <div>
+          <input class="btn btn-secondary w-100" id="txtAvatar" name="Avatar" type="file" multiple>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="txtFullContent">Thân bài</label>
+        <textarea class="form-control" id="txtFullContent" name="FullContent"></textarea>
+      </div>
+       {{!-- <div class="form-group">
+        <label for="txtTagPro">Tags (các tag cách nhau bởi  dấu #)</label>
+        <textarea class="form-control" id="txtTagPro" name="TagPro"></textarea>
+      </div> --}}
+    </div>
+    <div class="card-footer text-right">
+      <a class="btn btn btn-success" href="/products" role="button">
+                <i class="fa fa-backward"></i>
+                Back
+              </a>
+      <button type="submit" class="btn btn-info">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        Save
+      </button>
+    </div>
+  </div>
+</form>

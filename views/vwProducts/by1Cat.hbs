@@ -1,0 +1,34 @@
+<div class="row">
+  {{!-- card trai --}}
+  <div class="col-sm-8">
+    <div class="card border-0">
+  <div class="row no-gutters">
+
+ {{#each this.productstags}}
+        <div class="col-md-4 mt-2">
+          <a href="/products/{{ProID}}/{{CatID}}"><img src="/imgs/{{Avatar}}" class="card-img rounded"></a>
+        </div>
+      <div class=" col-md-7" style="margin-left: 15px;">
+          <h4 class="card-title">
+            <a href="/products/{{ProID}}/{{CatID}}">{{TitleName}}</a>
+          </h4>
+          <p class="card-text"><small class="text-muted">{{CatName}} - {{day}}/{{month}}/{{year}}</small></p>
+          <p class="card-text" style="font-size:15px;">{{MainContent}}</p>
+        </div>
+            <hr style="width:680px; float: left; margin.top: 2px;">
+         {{/each}}
+         {{!--  --}}
+    </div>
+    </div>
+{{#each this.tagcategory}}
+<a role="button" href="/categories/{{CategoryID}}/products" class="btn btn-secondary btn-sm ml-2 mt-2">{{TagName}}</a>
+{{/each}}
+  </div>
+{{!-- card phai --}}
+<div class="col-sm-4">
+    <div class="card border-0">
+    <iframe src="//adi.admicro.vn/adt/banners/nam2015/4043/min_html5/vutathanh/2019_06_05/300x600/300x600/300x600.html?url=%2F%2Flg1.logging.admicro.vn%2Fcpx%3Fcov%3D1%26tpn%3D1%26dmn%3Dhttp%253A%252F%252Fcafef.vn%252F%26cmpg%3D1299100%26items%3D569787%26zid%3D97%26cid%3D-1%26lsn%3D1561073403617%26ce%3D1%26lc%3D5%26cr%3D%26ui%3D%26re%3Dhttp%253A%252F%252Fwww.spvprimavera.com%252F%253Futm_source%253DAdMicro%2526utm_medium%253DCPD%2526utm_campaign%253DSunGroup&amp;admid=ads_zone97_banner569787&amp;vast=https%3A%2F%2Fsspapi.admicro.vn%2Fssp_request%2Fvideo%3Fu%3Dcafef.vn%252F%26z%3D97%26p%3D1%26w%3D650%26h%3D300%26%26lsn%3D28ebb9df658abf1c4e297741e98e654d%26dgid%3D8e998eaf0797baa82a41fbde08984214%26l%3D5%26loc%3D5%26i%3D3442032735712118583%26isdetail%3D0%26pid%3D%26tags%3D5%26adstype%3D%26vtype%3D8%26vid%3D%26bannerid%3D569787"
+     width="300" frameborder="0" scrolling="no" height="600"></iframe>
+  </div>
+
+</div>

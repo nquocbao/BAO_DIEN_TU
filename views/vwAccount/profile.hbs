@@ -1,0 +1,79 @@
+{{#section 'js'}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ezd73nxbzc7bu6e86g2l82jbbffke0mwevwrnyvc5q8h89j6"></script>
+{{/section}}
+{{#section 'css'}}
+<style>
+	body{
+	 height: 100%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-image: url('http://thuthuatphanmem.vn/uploads/2018/08/20/hinh-nen-cho-laptop-phong-canh-thien-nhien-doi-nui-dep_111334475.jpg');
+	}
+
+	.card{
+	color: #fff;
+	background-color: rgba(0,0,0,0.5) !important;
+	}
+</style>
+{{/section}}
+
+<body>
+<div class="card border-0" style="max-width: 540px; margin:auto;">
+	 <div class="card-header" style="text-align: center;"> <h3>User Profile</h3></div>
+  <div class="row no-gutters">
+    <div class="col-md-5">
+  <img src="/imgs/user/{{profile.photo}}" class="card-img-top rounded-circle mt-5" alt="..." 
+  style="width: 200px; height:200px; margin-left:20px;">
+  <a href="/account/loadphoto/{{profile.f_ID}}" class="btn btn-primary mt-3" style="margin-left: 100px;" role="button"><i class="fa fa-upload"></i></a>
+    </div>
+    <div class="col-md-7">
+      <div class="card-body">
+		 
+        <h4 class="card-title">{{profile.f_Name}}</h4>
+		<hr style="border-color: #fff;">
+		 <p class="card-text"><i class="fa fa-id-badge"></i>&nbsp; UserID: {{profile.f_ID}}</p>
+        <p class="card-text"><i class="fa fa-user"></i>&nbsp; Username: {{profile.f_Username}}</p>
+		<p class="card-text"><i class="fa fa-birthday-cake"></i>&nbsp; Date of birth: {{profile.day}}/{{profile.month}}/{{profile.year}}</p>
+		<p class="card-text"><i class="fa fa-envelope"></i>&nbsp; Email: {{profile.f_Email}}</p>
+		<script>
+
+function addDays(dateObj, numDays) {
+dateObj.setDate(dateObj.getDate() + numDays);
+   return dateObj;
+}
+			if({{profile.f_Permission}} == 1)
+			{
+				document.write(`<p class="card-text"><i class="fa fa-cc-visa"></i>&nbsp; Account Type: Admin</p>`);
+			}
+			if({{profile.f_Permission}} == 2)
+			{
+				document.write(`<p class="card-text"><i class="fa fa-cc-visa"></i>&nbsp; Account Type: Writer</p>`);
+			}
+			if({{profile.f_Permission}} == 3)
+			{
+				document.write(`<p class="card-text"><i class="fa fa-cc-visa"></i>&nbsp; Account Type: Editor</p>`);
+			}
+		if({{profile.f_Permission}} == 0)
+			{
+				document.write(`<p class="card-text"><i class="fa fa-cc-visa"></i>&nbsp; Account Type: Premium</p>
+				                 <p class="card-text"><i class="fa fa-history"></i>&nbsp; Account term(7 days): 
+												 </p>`);
+			}
+		</script>
+		<hr style="border-color: #fff;">
+		<div class=" text-center">
+	        <a class="btn btn-primary btn-sm w-25" href="/account/editUser/{{profile.f_ID}}" role="button">
+                   <i class="fa fa-pencil" aria-hidden="true"></i>Edit</a>
+       </div>  
+      </div>
+    </div>
+  </div>
+<div class="card-footer text-right">
+</div>
+
+</body>
+           

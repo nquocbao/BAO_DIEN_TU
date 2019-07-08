@@ -1,0 +1,56 @@
+<div class="card">
+  <h2 class="card-header text-left">
+    Users 
+  </h2>
+ <table class="table table-hover text-center">
+  <thead>
+    <tr class="text-center">
+      <th scope="col">#</th>
+      <th scope="col">Tên đăng nhập</th>
+      <th scope="col">Họ tên</th>
+      <th scope="col">Ngày đăng kí</th>
+       <th scope="col">Ngày hết hạn</th>
+       <th scope="col">Loại tài khoản</th>
+      <th scope="col" class="text-right">
+      
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each this.giahan }}
+    {{#if_eq f_Permission 0}}
+       <tr>
+           <th scope="row">{{f_ID}}</th>
+           <td>{{f_Username}}</td>
+           <td>{{f_Name}}</td>
+           <td>{{DaySignUp}}</td>
+           <td>{{DayDeadline}}</td>
+           <td>Subscriber</td>
+           <td class="text-right">
+            <div>
+            <a  class="btn btn-success btn-sm mt-3" data-toggle="collapse" href="#err{{ProID}}" title="Báo lỗi"> 
+            <i class="fa fa-plus"></i></a>
+            <div id="err{{ProID}}"  class="collapse mt-2">
+            <form action="" method="POST">
+            <input type="text" name="tg" value="{{day}}/{{month}}/{{year}}">
+            <textarea name="number" cols="22" rows="2" placeholder="Số ngày gia hạn ..." ></textarea>
+            <button  type="submit" class="btn btn-primary btn-sm mt-3" 
+                     formaction="/account/renewal/{{f_ID}}">Sent</button>               
+            </form> 
+            </div>
+
+               
+
+             <form action="" method="POST">
+             <button class="btn btn-danger btn-sm mt-2" type="submit" title="hủy gia hạn"
+             formaction="/account/delrenewal/{{f_ID}}">
+                <i class="fa fa-minus"></i>
+              </button>
+              </form> 
+           </td>
+      </tr>
+      {{/if_eq}}
+    {{/each}}
+  </tbody>
+</table>
+</div>

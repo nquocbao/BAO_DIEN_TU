@@ -1,0 +1,223 @@
+{{#section 'js'}}
+<script>
+  function checkAccount()
+  {
+    alert('please, Login or register your account!!!');
+  }
+</script>
+{{/section}}
+{{#section 'css'}}
+<style>
+  li {list-style-type: none; }
+  ul{list-style-type: none; }
+</style>
+{{/section}}
+<div class="row">
+  <div class="col-sm-8">
+    <div class="card mb-3 border-0">
+    <div class="card-body">
+    {{#if this.error}}
+      <div class="alert alert-danger" role="alert">
+        <a href="/" class="alert-link">Click</a> go home!
+      </div>
+    {{else}}
+      {{#each this.product}}
+      <div>
+    <h3 style="font-weight:bold;" class="card-title">{{TitleName}}</h3>
+    <p class="card-text"><small class="text-muted">{{CatName}} - {{day}}/{{month}}/{{year}} </small></p>
+    <p class="card-text" style="font-weight:bold; font-size:18px;">{{MainContent}}</p>
+    <img src="/imgs/{{Avatar}}" class="card-img-top" alt="...">
+    <p class="card-text">{{{FullContent}}}</p>
+     </div>
+      {{/each}}         
+    {{/if}}
+    </div>  
+    </div>
+{{!-- comment --}}
+ {{#if isAuthenticated}}
+<script>
+   var v = 0; // dang nhap r
+</script>
+{{else}}
+<script>
+   var v = 1; // chua dang nhap
+</script>
+{{/if}} 
+
+    {{#each this.comment}}          
+  <ul>
+    <li>
+      <div class="card col-dm-10">
+      <div>
+        <div class="row">
+          <div class="col-md-3 ml-4">
+            <img src="/imgs/user/{{photo}}" class="rounded-circle mt-3" style="width: 95px; height:95px;"/>
+          </div>
+          <div class="">
+          <p class=""><strong>{{f_Username}}</strong></p>
+          <p>{{day}}/{{month}}/{{year}} {{hour}}:{{minute}}</p>
+          <p>{{ComContent}}</p>
+          <p>
+            <a class="btn btn-info btn-circle text-uppercase" data-toggle="collapse" href="#comment{{ComID}}" id="reply">Reply</a>
+            {{!-- <a class="btn btn-warning btn-circle text-uppercase" data-toggle="collapse" href="#replyOne{{ComID}}">see comments</a> --}}
+          </p>
+        </div>
+      </div>
+    </div>
+	    </div>     
+  
+    {{!-- <div class="collapse" id="replyOne{{ComID}}">
+        <ul>
+            <li>
+             <div class="card card-inner mt-2" style="margin-left:-15px;">
+            	  <div class="card-body">
+            	    <div class="row">
+                    <div class="col-md-2">
+                    	<img src="/imgs/sp_1.jpg" class=" img-fluid"/>
+                    	  <p class="text-secondary text-center">15 Minutes Ago</p>
+                    </div>
+                  <div class="col-md-10">
+                  <p><a href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a></p>
+                  <p>aaaaa</p>
+                  <p>
+                    <a class="btn btn-info btn-circle text-uppercase" data-toggle="collapse" href="#comment{{ComID}}" id="reply"> Reply</a>
+                  </p>
+                </div>
+            </div>
+          </div>
+	    </div>
+    </li>
+   
+  </ul>
+</div>  --}}
+
+ <div class="collapse" id="comment{{ComID}}">
+        <ul>
+      <li>
+      <form class="form my-2 my-lg-0" method="POST" href="">
+     <div class="card card-inner mt-2" style="margin-left:-15px;">
+    <div class="card-body">
+      <script>
+        if(v == 1)
+        document.write(`<textarea name="RecomContent" id="txtComContent" cols="60" rows="3" 
+        placeholder="Ý kiến của bạn ..." onclick="checkAccount();"></textarea>`);
+         if(v == 0)
+        document.write(`<textarea name="RecomContent" id="txtComContent" cols="60" rows="3"
+         placeholder="Ý kiến của bạn ..."></textarea>`);
+      </script>
+    <div >
+      <a href="/account/login" class="text-left">Đăng nhập</a> | <a href="/account/register">Đăng kí</a>
+      <button type="submit" class="btn btn-primary" 
+      style="width:80px;float:right; background:darkblue; height: 30px; padding-top: 1px;"
+      formaction="/products/recomment/{{ProID}}/{{CatID}}">
+      Gửi</button>
+    </div>
+  </div>
+</div>
+    </form>
+
+    </li>
+  </ul>
+</div> 
+
+</li>
+</ul>
+{{/each}}
+{{!-- add comment --}}
+{{#each this.product}}
+<form class="form my-2 my-lg-0" method="POST">
+     <div class="card  mt-2">
+    <div class="card-body">
+      <script>
+        if(v == 1)
+        {
+          document.write(`<textarea name="ComContent" id="txtComContent" cols="80" rows="3"
+   placeholder="Ý kiến của bạn ..." onclick="checkAccount();"></textarea>`);
+        }
+        if(v == 0)
+        {
+          document.write(`<textarea name="ComContent" id="txtComContent" cols="80" rows="3"
+   placeholder="Ý kiến của bạn ..."></textarea>`);
+        }
+      </script>
+    
+    <div >
+      <a href="/account/login" class="text-left">Đăng nhập</a> | <a href="/account/register">Đăng kí</a>
+      <button type="submit" class="btn btn-primary"
+      style="width:80px;float:right; background:darkblue; height: 30px; padding-top: 1px;"
+      formaction="/products/comment/{{ProID}}/{{CatID}}">
+      Gửi</button>
+    </div>
+  </div>
+</div>
+    </form>
+{{/each}}
+{{!-- tags --}}
+<div class="card border-0">
+  <div class="card-body">
+<a href="" class="btn btn-secondary btn-sm disabled" role="button" aria-pressed="true"
+         style="height:25px; min-width: 70px; padding-top:0px; margin-top:25px;">
+    <small><i class="fa fas fa-tag"></i> tags</small>
+  </a>
+  {{#each this.tagp}}
+  <a href="/categories/{{TagID}}/products/tags" class="btn btn-secondary btn-sm" role="button" aria-pressed="true"
+         style="height:25px; min-width: 70px; padding-top:0px; margin-left:10px; margin-top:25px;">
+  <small>{{TagName}}</small></a>
+  {{/each}}
+  </div> 
+</div>
+{{!--  --}}
+  </div>
+  <div class="col-sm-4">
+    {{!--  --}}
+    <div class="mb-2">
+      <a style="font-weight: bold; font-size:26px; background: #000099; width:5px;">&nbsp;</a>
+      <a style="font-weight: bold; font-size:22px; margin-left:10px;">BÀI VIẾT LIÊN QUAN</a>
+    </div>
+     {{#each this.fiveproduct}}
+     <div class="card mb-3 border-0">
+      <div class="row no-gutters">
+        <div class="col-md-4 mt-2">
+          <a href="/products/{{ProID}}/{{CatID}}"><img src="/imgs/{{Avatar}}" class="card-img rounded"></a>
+        </div>
+      <div class=" col-md-7" style="margin-left: 15px;">
+          <h5 class="card-title">
+            <a href="/products/{{ProID}}/{{CatID}}">{{TitleName}}</a>
+          </h5>
+          <p class="card-text"><small class="text-muted">{{CatName}}</small></p>
+      </div>
+    </div>  
+    </div>
+    {{/each}}
+    
+  {{!-- <div class="card mb-3 border-0">
+<iframe src="https://adi.admicro.vn/adt/banners/nam2015/4043/min_html5/hiepnguyenxuan/2019_05_08/300x600_T4-38/300x600_T4-38/300x600_T4-38.html?url=%2F%2Flg1.logging.admicro.vn%2Fadn%3Fdmn%3Dhttp%253A%252F%252Fcafef.vn%252Fthi-truong.chn%26rid%3D20abba08-1394-4be2-aaf3-dad77fc8c06a%26lsn%3D1559487657495%26ce%3D1%26lc%3D5%26cr%3D1542032735%26ui%3D3442032735712118583%26bi%3D0%26cmpg%3D38478%26items%3D142587%26zid%3D508571%26pr%3D14282511941%26cid%3D-1%26tp%3D11%26tpn%3D4%26alg%3D2%26adc_cpa%3D1%26cov%3D1%26re%3Dhttps%253A%252F%252Fwww.panasonic.com%252Fvn%252Fevents-and-promotions%252Fpromotions%252Fquality-air-for-life.html%253Futm_source%253DAdmicro.ADX.Bus.Nam%2526utm_medium%253DCPC%2526utm_campaign%253DAC0419&amp;admid=adnzone_508571_0_142587"
+ width="300" height="600" frameborder="0" scrolling="no"></iframe>
+ </div>     --}}
+    {{!--  --}}
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

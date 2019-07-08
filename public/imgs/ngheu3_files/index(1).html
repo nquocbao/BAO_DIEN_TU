@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!-- saved from url=(0065)https://za.zalo.me/static/v3/index.html?origin=https://baomoi.com -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Iframe</title>
+    </head>
+    <body>
+        <script>
+            try {
+                var startExcFrame = Date.now();
+                function getParameterByName(name, url) {
+                    if (!url)
+                        url = window.location.href;
+                    name = name.replace(/[\[\]]/g, "\\$&");
+                    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                            results = regex.exec(url);
+                    if (!results)
+                        return null;
+                    if (!results[2])
+                        return '';
+                    return decodeURIComponent(results[2].replace(/\+/g, " "));
+                }
+                var postTime = 0, getMDSTime = 0;
+                function postMsg(msg, origin){
+                    var start = Date.now();
+                    var postMsg = {msgType:"mds", data:msg}
+                    window.parent.postMessage(JSON.stringify(postMsg), origin);
+                    postTime = Date.now() - start;
+                }
+                var origin = getParameterByName('origin');
+                
+                if (origin) {
+                    var isTimedout = false;
+                    var postMsgTimeout = setTimeout(function(){
+                        isTimedout = true;
+                        var lastMDS = JSON.parse(localStorage.getItem("lastMDS"));
+                        if (lastMDS && Date.now() - lastMDS.timeStamp < 21600000){
+                            postMsg(lastMDS.data, origin);
+                        }else{
+                            postMsg("time out", origin);
+                        }
+                    }, 3000);
+                    if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices){
+                        var start = Date.now();
+                        navigator.mediaDevices.enumerateDevices().then(function(data) {
+                        clearTimeout(postMsgTimeout);
+                        getMDSTime = Date.now() - start;
+                        var postData = "";
+                        var postDataArray = [];
+                        if (!data){
+                            postMsg("undisclosed", origin);
+                            return;
+                        }
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].deviceId === "default") {
+                                continue;
+                            }
+                            postDataArray.push(data[i].deviceId);
+                        }
+                        postDataArray.sort();
+                        for (var i = 0; i < postDataArray.length; i++) {
+                            postData += postDataArray[i];
+                        }
+                        
+                        postMsg(postData, origin);
+                        
+                        if (Date.now() - startExcFrame > 4000){
+                            new Image().src = "https://za.zalo.me/v3/le?error=" + encodeURIComponent('{"error":"iframe", "extra": '
+                                + '{"postTime":"' + postTime
+                                + '","getMDSTime":"' + getMDSTime + '"}}');
+                        }
+                        var storeData = {data:postData,timeStamp:Date.now()};
+                        localStorage.setItem("lastMDS", JSON.stringify(storeData));
+                    })
+                    }
+                    else{
+                        postMsg("not support", origin);
+                    }                    
+                }
+            }
+            catch (e) {
+                new Image().src = "https://za.zalo.me/v3/le?error=" + encodeURIComponent('{"error":"iframe", "extra": '
+                    + '{"name":"' + e.name
+                    + '","line":"' + (e.lineNumber || e.line)
+                    + '","stack":"' + (e.stackTrace || e.stack)
+                    + '","message":"' + e.message + '"}}');
+            }
+        </script>
+    
+
+</body></html>

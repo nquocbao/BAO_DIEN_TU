@@ -1,0 +1,54 @@
+<form method="POST">
+<div class="card">
+  <h2 class="card-header text-center">
+    Hiệu chỉnh bài viết
+  </h2>
+ <table class="table table-hover">
+  <thead>
+    <tr class="text-center">
+      <th scope="col">#</th>
+      <th scope="col">Title Name</th>
+      <th scope="col">Main Content</th>
+      <th scope="col">Date Summitted</th>
+      <th scope="col">Avatar</th>
+      <th scope="col">status</th>
+      <th scope="col">Category</th>
+      <th scope="col" class="text-right">
+        <a class="btn btn-outline-success" href="/products/add" role="button" title="Add">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </a>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    {{#each this.productEditWriter}}
+       <tr>
+           <th scope="row">{{ProID}}</th>
+           <td>{{TitleName}}</td>
+           <td>{{MainContent}}</td>
+           <td>{{DateSummitted}}</td>
+           <td class="text-center" >
+              <img src="/imgs/{{Avatar}}" alt="" style="width: 90px;"> 
+            </td>
+            <script>
+              if({{status}} == 0)
+               document.write(`<td>chưa được duyệt</td>`);
+               if({{status}} == -1)
+               document.write(`<td>bị từ chối</td>`);
+            </script>
+             <td class="text-center">{{CatName}}</td>
+             <td class="text-right">
+              <a class="btn btn-warning btn-sm " href="/products/full/{{ProID}}/sp" role="button" title="full content">
+                 <i class="fa fa-battery-full"></i>
+              </a>
+             <a class="btn btn-primary btn-sm mt-3" href="/products/edit/{{ProID}}" 
+            role="button" title="Edit">&nbsp;<i class="fa fa-pencil" aria-hidden="true"></i>
+            </a> 
+           </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>
+</form>

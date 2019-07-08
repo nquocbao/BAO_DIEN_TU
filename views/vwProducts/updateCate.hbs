@@ -1,0 +1,50 @@
+<div class="container">
+	<div class="row justify-content-center" style="margin-top:50px;">
+		<div class="col-12 col-md-8 col-lg-6 pb-5">
+    <!--Form with header-->
+     <form action="" method="POST">
+        <div class="card border-primary rounded-0">
+            <div class="card-header p-0">
+              <div class="bg-info text-white text-center py-2">
+                  <h3><i class="fas fa fa-plus-square"></i>  Sửa Chuyên Mục Sản Phẩm </h3>
+              </div>
+            </div>
+        <div class="card-body p-3">
+      <!--Body-->
+      {{#each this.editCateP}}
+     <div class="form-group">
+        <label for="">Chuyên mục:&nbsp; <span style="font-weight:bold; color:red; font-size:20px;" >{{CatName}}</span></label>
+    </div>  
+     {{/each}}
+    <div class="form-group">
+        <label for="">Thay Đổi:&nbsp;&nbsp;</label>
+       <select name="CatID" style="width: 180px; height:35px;">
+           {{#each lcCategories}}
+            <option value="{{CatID}}">{{CatID}} - {{CatName}}</option>
+              {{/each}}
+        </select>
+    </div>
+    
+ {{#each this.editCateP}}
+     <div class="form-group d-flex">
+            <div>
+              <a class="btn btn-lg btn btn-success btn-block" href="/products/edit/{{ProID}}" role="button">
+                 <i class="fa fa-backward"></i>
+                Back
+              </a>
+            </div>
+    {{/each}}  
+        <div class="flex-fill ml-1">
+            <button class="btn btn-info btn-lg btn-block" type="submit">
+            <i class="fa fa-sign-in" aria-hidden="true"></i>
+            Save
+            </button>
+        </div>
+    </div>
+    </div>
+  </form>
+<!--Form with header-->
+    </div>
+	</div>
+</div>
+

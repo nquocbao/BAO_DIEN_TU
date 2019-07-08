@@ -1,0 +1,140 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+  <style>
+    body,
+    html {
+      height: 100%;
+      background-size: cover;
+background-repeat: no-repeat;
+      background-image: url('https://data.1freewallpapers.com/download/natural-park-autumn-red-leaves-autumn-scenery.jpg');
+      /* background-color: yellow; */
+    }
+
+.card{
+margin: auto;
+width: 500px;
+background-color: rgba(0,0,0,0.5) !important;
+}
+  </style>
+{{/section}}
+{{#section 'js'}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script>
+  $(function () {
+
+    $('#txtfdob').datetimepicker({
+      format: 'd/m/Y',
+      timepicker: false,
+      mask: false,
+    });
+
+    $('#edituserForm').validate({
+      rules: {
+        f_Username: {
+          required: true,
+          },
+        f_Name: {
+          required: true,
+        },
+        f_Email: {
+          required: true,
+          email: true
+        },
+        fdob: {
+          required: true,
+        },
+      },
+      messages: {
+        f_Username: {
+          required: 'Your username is required.'
+        },
+        f_Name: {
+          required: 'Valid full name is required.',
+        },
+        f_Email: {
+          required: 'Please enter a valid email address.',
+          email: 'Please enter a valid email address.'
+        },
+        fdob: {
+          required: 'Valid date of birth is required.',
+        },
+      },
+      errorElement: 'small',
+      errorClass: 'help-block text-warning',
+      validClass: 'is-valid',
+      highlight: function (e) {
+        $(e).removeClass('is-valid').addClass('is-invalid');
+      },
+      unhighlight: function (e) {
+        $(e).removeClass('is-invalid').addClass('is-valid');
+      },
+    });
+  })
+</script>
+{{/section}}
+<head>
+  {{!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> --}}
+  <meta charset="utf-8">
+  
+</head>
+
+<body>
+  <div class="container-fluid h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div>
+        {{#if err_message}}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{err_message}}
+        </div>
+        {{/if}}
+        <div class="card ">
+          <div class="card-header">
+              <center> <h1 style="color: #FFFF;">UPDATES PERSONAL INFORMATION</h1></center> 
+           </div> 
+          <div class="card-body">
+        <form method="POST" id="edituserForm">
+          {{#if editprofile}}
+          <div class="form-group">
+              <input class="form-control form-control-lg border-right-0 border" placeholder="Username" type="text"
+                name="f_Username" value="{{editprofile.f_Username}}">
+          </div>
+          <div class="form-group">
+              <input class="form-control form-control-lg border-right-0 border" placeholder="Name" type="text"
+                name="f_Name" value="{{editprofile.f_Name}}">
+         </div>
+          <div class="form-group">
+              <input class="form-control form-control-lg border-right-0 border" placeholder="Email" type="text"
+                name="f_Email" value="{{editprofile.f_Email}}">
+          </div>
+           <div class="form-group">
+        <input type="text" class="form-control form-control-lg border-right-0 border" id="txtfdob" 
+        name="fdob" value="{{editprofile.day}}/{{editprofile.month}}/{{editprofile.year}}">
+      </div>
+          <div class="form-group d-flex">
+            <div>
+              <a class="btn btn-lg btn btn-success btn-block" href="/account/profile/{{editprofile.f_ID}}" role="button">
+                <i class="fa fa-user"></i>
+                Profile
+              </a>
+            </div>
+          {{/if}}
+            <div class="flex-fill ml-1">
+              <button class="btn btn-info btn-lg btn-block" type="submit">
+                <i class="fa fa-sign-in" aria-hidden="true"></i>
+                Update
+              </button>
+            </div>
+          </div>        
+        </form>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

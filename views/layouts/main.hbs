@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=980px;, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/footer.css">
+   <link rel="stylesheet" href="/css/navbar.css">
+   {{{_sections.css}}}
+  <title>Bao Dien Tu</title>
+</head>
+<body>
+  <div style="min-height: 80px;background:#ffff;">
+  <table style="max-height: 80px; margin:auto; background:#ffff" class="col-sm-9" >
+    <tr>
+      <td>
+          <span><a href="/"><img src="/imgs/logo.png" alt="" style="height:80px; margin:auto;"></a></span>
+      </td>
+    </tr>
+  </table>
+  </div>
+  {{!--  --}}
+  <div style="width:100%; min-height:62px; background:#008B8B; margin-bottom:25px;">
+  	<nav class="navbar navbar-expand-sm navbar-light bg-light col-sm-9" style="margin:auto">
+      <a  class="navbar-brand" href="/" title="home" >      
+    <i class="fa fa-home fa-lg"></i>
+  </a>
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">NÔNG SẢN</a>
+      <div class="dropdown-menu rounded">
+      {{#each lcCategories}}
+    <script>
+         if({{OriginID}} == 1)
+         {
+           document.write(
+            `<a href="/categories/{{CatID}}/products" class=" dropdown-item list-group-item list-group-item-action">
+              {{CatName}}
+             </a>`)
+          }
+    </script>
+    {{/each}}
+      </div>
+    </li>
+     <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">HẢI SẢN</a>
+      <div class="dropdown-menu rounded">
+      {{#each lcCategories}}
+    <script>
+         if({{OriginID}} == 2)
+         {
+           document.write(
+            `<a href="/categories/{{CatID}}/products" class=" dropdown-item list-group-item list-group-item-action">
+              {{CatName}}
+             </a>`)
+          }
+    </script>
+    {{/each}}
+    {{!-- <a href="/categories/{{CatID}}/products" class=" dropdown-item list-group-item list-group-item-action {{#if active}}active{{/if}}">
+              {{CatName}}
+              {{#if number_of_products}}
+               <span class="badge badge-danger float-right">{{number_of_products}}</span>
+              {{/if}}
+             </a> --}}
+      </div>
+      </li>
+      {{!-- Admin --}}
+      {{#if isAuthenticatedAdmin}}
+       <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">MANAGEMENT</a>
+      <div class="dropdown-menu rounded">
+        <a href="/categories" class=" dropdown-item list-group-item list-group-item-action">
+        <i class="fa fa-cog"></i>&nbsp; Quản lí Chuyên mục
+        </a>
+        <a href="/products" class=" dropdown-item list-group-item list-group-item-action">
+        <i class="fa fa-eye"></i>&nbsp; Quản lí bài viết
+        </a>
+        <a href="/account/users" class=" dropdown-item list-group-item list-group-item-action">
+       <i class="fa fa-user"></i>&nbsp; Quản lí tài khoản
+        </a>  
+        <a href="/tags/index" class=" dropdown-item list-group-item list-group-item-action">
+       <i class="fa fa-tag"></i>&nbsp; Quản lí Tags
+        </a>   
+        {{!-- <a href="/categories/assigned" class=" dropdown-item list-group-item list-group-item-action">
+        <i class="fa fa-wrench"></i>&nbsp; Phân công chuyên mục
+        </a>    --}}
+      </div>
+      </li>
+      {{/if}}
+      {{!-- Writer --}}
+       {{#if isAuthenticatedWriter}}
+       <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">QL BÀI VIẾT</a>
+      <div class="dropdown-menu rounded">
+        <a href="/products/add" class=" dropdown-item list-group-item list-group-item-action">
+        <i class="fa fa-paper-plane"></i>&nbsp; Đăng bài viết       
+        </a>
+        <a href="/tags/addTagsProducts/writer" class=" dropdown-item list-group-item list-group-item-action">
+        <i class="fa fa-paste"></i>&nbsp; Gán nhãn bài viết       
+        </a>
+        <a href="/products" class=" dropdown-item list-group-item list-group-item-action">
+        <i class="fa fa-eye"></i>&nbsp; Xem danh sách
+        </a>
+        <a href="/products/editwriter/{{authWriter.f_ID}}/sp" class=" dropdown-item list-group-item list-group-item-action">
+       <i class="fa fa-edit"></i>&nbsp; Hiệu chỉnh
+        </a>    
+        <a href="/products/personal/{{authWriter.f_ID}}/sp" class=" dropdown-item list-group-item list-group-item-action">
+       <i class="fa fa-product-hunt"></i>&nbsp; Bài viết cá nhân
+        </a> 
+      </div>
+      </li>
+      {{/if}}
+      {{!-- Editor --}}
+       {{#if isAuthenticatedEditor}}
+       <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">QL BÀI VIẾT</a>
+      <div class="dropdown-menu rounded">
+        <a href="/products" class=" dropdown-item list-group-item list-group-item-action">
+        <i class="fa fa-eye"></i>&nbsp; Danh sách bài viết
+        </a>    
+      </div>
+      </li>
+      {{/if}}
+      {{!--  --}}
+    </ul>
+     <form class="form-inline my-2 my-lg-0" style="margin-right:80px;" method="POST">
+      <input class="form-control mr-sm-3" type="search: width: 400px;" placeholder="Search" name ="search">
+      <button class="btn btn-success my-2 my-sm-0" type="submit" formaction="/products/search">Search</button>
+    </form>
+    <form id="frmLogout" action="/account/logout" method="POST"></form>
+      {{!-- menu tai khoan --}}
+    <ul class="navbar-nav">
+      {{#if isAuthenticated}}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Hi, <strong>{{authUser.f_Name}}</strong>
+          </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+           <a class="dropdown-item" href="/account/profile/{{authUser.f_ID}}">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            Profile</a>
+              <a class="dropdown-item" href="/account/changepassword/{{authUser.f_ID}}"><i class="fa fa-edit"></i>
+          Change Password</a>
+            <a class="dropdown-item" href="javascript: $('#frmLogout').submit();">
+           <i class="fa fa-sign-out" aria-hidden="true"></i>
+           Sign Out</a>
+          </div>
+      </li>
+      {{!-- </ul> --}}
+        {{else}}
+    {{!-- <ul class="navbar-nav mr-auto mt-2 mt-lg-0"> --}}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" 
+        aria-haspopup="true" aria-expanded="false">
+           <img src="/imgs/user.png" alt="" style="width:30px;">
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/account/login"><i class="fa fa-sign-in" aria-hidden="true"></i>
+          Sign In</a>
+          <a class="dropdown-item" href="/account/register"><i class="fa fa-user-plus"></i>
+          Register</a>
+          </div>
+          </div>
+      </li>
+      </ul>
+       {{/if}}
+      {{!-- //// --}}
+  </div>
+</nav>
+</div>
+{{!--  --}}
+    <div class="col-sm-9" style="margin:auto;">
+      {{{body}}}
+     </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" type="text/javascript"></script>
+
+{{!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+{{!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> --}}
+{{{_sections.js}}}
+</body>
+   {{!-- footer --}}
+    <section id="footer" style="margin-top: 30px;">
+		<div class="container">
+			<div class="row text-center text-xs-center text-sm-left text-md-left">
+				<div class="col-xs-12 col-sm-4 col-md-4">
+					<h5>Quick links</h5>
+					<ul class="list-unstyled quick-links">
+						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Home</a></li>
+						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>About</a></li>
+						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>FAQ</a></li>
+						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Get Started</a></li>
+						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Videos</a></li>
+					</ul>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4">
+					<h5>Quick links</h5>
+					<ul class="list-unstyled quick-links">
+						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Home</a></li>
+						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>About</a></li>
+						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>FAQ</a></li>
+						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Get Started</a></li>
+						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Videos</a></li>
+					</ul>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4">
+					<h5>Quick links</h5>
+					<ul class="list-unstyled quick-links">
+						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Home</a></li>
+						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>About</a></li>
+						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>FAQ</a></li>
+						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Get Started</a></li>
+						<li><a href="https://wwwe.sunlimetech.com" title="Design and developed by"><i class="fa fa-angle-double-right"></i>Imprint</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
+					<ul class="list-unstyled list-inline social text-center">
+						<li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-facebook"></i></a></li>
+						<li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-twitter"></i></a></li>
+						<li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-instagram"></i></a></li>
+						<li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-google-plus"></i></a></li>
+						<li class="list-inline-item"><a href="javascript:void();" target="_blank"><i class="fa fa-envelope"></i></a></li>
+					</ul>
+				</div>
+				</hr>
+			</div>	
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+					<p><u><a href="https://www.nationaltransaction.com/">National Transaction Corporation</a></u> is a Registered MSP/ISO of Elavon, Inc. Georgia [a wholly owned subsidiary of U.S. Bancorp, Minneapolis, MN]</p>
+					<p class="h6">&copy All right Reversed.<a class="text-green ml-2" href="https://www.sunlimetech.com" target="_blank">Sunlimetech</a></p>
+				</div>
+				</hr>
+			</div>	
+		</div>
+  
+	</section>
+    {{!-- footer --}}
+</div>
+</html>

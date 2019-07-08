@@ -1,0 +1,182 @@
+<div class="row">
+  {{!-- card trai --}}
+  <div class="col-sm-8">
+    <div class="card border-0">
+  {{!-- carousel --}}
+  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    {{!-- 1 Bai viet co luot view cao nhat da duoc duyet --}}
+    {{#each lcCateTimeView}} 
+    <div class="carousel-item active">
+     <a href="/products/{{ProID}}/{{CatID}}"><img src="/imgs/{{Avatar}}" class="d-block w-100" alt="..." style="height:480px;"></a>
+       <h3 class="card-title">
+            <a href="/products/{{ProID}}/{{CatID}}">{{TitleName}}</a>
+          </h3>
+          <p class="card-text"><small class="text-muted">{{CatName}} - {{day}}/{{month}}/{{year}}</small></p>
+          <p class="card-text" style="font-size:18px;">{{MainContent}}</p>
+    </div>
+    {{/each}}
+    {{!-- 2 bai viet moi nhat duoc duyet --}}
+    {{#each  lcCateViewBiggest}}
+    <div class="carousel-item">
+      <a href="/products/{{ProID}}/{{CatID}}"><img src="/imgs/{{Avatar}}" class="d-block w-100" alt="..." style="height:480px;"></a>
+       <h3 class="card-title">
+            <a href="/products/{{ProID}}/{{CatID}}">{{TitleName}}</a>
+          </h3>
+          <p class="card-text"><small class="text-muted">{{CatName}} - {{day}}/{{month}}/{{year}}</small></p>
+          <p class="card-text" style="font-size:18px;">{{MainContent}}</p>
+    </div>
+   {{/each}}
+  </div>
+  {{!-- <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a> --}}
+   <hr style="width:650px; float: left; margin.top: 2px;">
+</div>
+{{!-- Bai viet premium --}}
+{{!-- user xem duoc khi tai khoan chua het han --}}
+{{#if isAuthenticated}}
+<script>
+  var check = 1;
+  var u_id = {{authUser.f_ID}}
+</script>
+{{/if}}
+{{#each lcUser}}
+<script>
+  if({{f_Permission}} == 0  && check == 1 && {{f_ID}} == u_id)
+  { 
+  var t = new Date();
+  var y = t.getFullYear(), m = t.getMonth(), d = t.getDate()
+  var startDate = parseDate(`{{day}}/{{month}}/{{year}}`).getTime();
+  var endDate = parseDate(`${d}/${m + 1}/${y}`).getTime();
+    if (startDate > endDate) 
+     var result = 1;
+    else
+      var result = 0;
+// Chuyển chuỗi kí tự (string) sang đối tượng Date()
+  function parseDate(str)
+  {
+     var mdy = str.split('/');
+     return new Date(mdy[2], mdy[1], mdy[0]);
+   }
+}
+</script>
+{{/each}}
+
+<script>
+  if(result == 1)
+  document.write(`
+   <div>
+         <a style="font-weight: bold; font-size:26px; background: #000099; width:5px;" class="mt-4">&nbsp;</a>
+          <a style="font-weight: bold; font-size:26px; margin-left:10px;">PREMIUM</a>
+      </div>
+  <div class="row no-gutters">
+         {{#each lcPremium}}
+        <div class="col-md-4 mt-2">
+          <a href="/products/{{ProID}}/{{CatID}}"><img src="/imgs/{{Avatar}}" class="card-img rounded"></a>
+        </div>
+      <div class=" col-md-7" style="margin-left: 15px;">
+          <h4 class="card-title">
+            <a href="/products/{{ProID}}/{{CatID}}">{{TitleName}}</a>
+          </h4>
+          <p class="card-text"><small class="text-muted">{{CatName}} - {{day}}/{{month}}/{{year}}</small></p>
+          <p class="card-text" style="font-size:15px;">{{MainContent}}</p>
+      </div>
+            <hr style="width:650px; float: left; margin.top: 2px;">
+         {{/each}}
+  </div>`);
+</script>
+
+  {{!-- luot xem --}}
+      <div>
+         <a style="font-weight: bold; font-size:26px; background: #000099; width:5px;">&nbsp;</a>
+          <a style="font-weight: bold; font-size:26px; margin-left:10px;">MỚI NHẤT</a>
+      </div>
+
+  <div class="row no-gutters">
+         {{#each lcCateTime}}
+        <div class="col-md-4 mt-2">
+          <a href="/products/{{ProID}}/{{CatID}}"><img src="/imgs/{{Avatar}}" class="card-img rounded"></a>
+        </div>
+      <div class=" col-md-7" style="margin-left: 15px;">
+          <h4 class="card-title">
+            <a href="/products/{{ProID}}/{{CatID}}">{{TitleName}}</a>
+          </h4>
+          <p class="card-text"><small class="text-muted">{{CatName}} - {{day}}/{{month}}/{{year}}</small></p>
+          <p class="card-text" style="font-size:15px;">{{MainContent}}</p>
+      </div>
+            <hr style="width:650px; float: left; margin.top: 2px;">
+         {{/each}}
+  </div>
+{{!-- luot views --}}
+    <div>
+      <a style="font-weight: bold; font-size:26px; background: #000099; width:5px;">&nbsp;</a>
+      <a style="font-weight: bold; font-size:26px; margin-left:10px;">THỊNH HÀNH</a>
+    </div>
+
+     <div class="row no-gutters">
+         {{#each lcCateView}}
+        <div class="col-md-4 mt-2">
+          <a href="/products/{{ProID}}/{{CatID}}"><img src="/imgs/{{Avatar}}" class="card-img rounded"></a>
+        </div>
+      <div class=" col-md-7" style="margin-left: 15px;">
+          <h4 class="card-title">
+            <a href="/products/{{ProID}}/{{CatID}}">{{TitleName}}</a>
+          </h4>
+          <p class="card-text"><small class="text-muted">{{CatName}} - {{day}}/{{month}}/{{year}}</small></p>
+          <p class="card-text" style="font-size:15px;">{{MainContent}}</p>
+      </div>
+            <hr style="width:650px; float: left; margin.top: 2px;">
+         {{/each}}
+  </div>
+ </div>
+ </div>
+{{!-- card trai --}}
+<div class="col-sm-4">
+    <div class="card border-0">
+      <div>
+         <a style="font-weight: bold; font-size:26px; background: #000099; width:5px;">&nbsp;</a>
+          <a style="font-weight: bold; font-size:26px; margin-left:10px;">TOP CHUYÊN MỤC</a>
+      </div>
+     {{!--  --}}
+      {{#each lcCateMaxView}}
+     <div class="card mb-3 border-0">
+         <div class="row no-gutters">
+       
+        <div class="col-md-4 mt-2">
+          <a href="/products/{{ProID}}/{{CatID}}"><img src="/imgs/{{Avatar}}" class="card-img rounded"></a>
+        </div>
+      <div class=" col-md-7" style="margin-left: 15px;">
+          <h5 class="card-title">
+            <a href="/products/{{ProID}}/{{CatID}}">{{TitleName}}</a>
+          </h5>
+          <p class="card-text"><small class="text-muted">{{CatName}}</small></p>
+      </div>
+         
+         </div>
+      </div>
+      {{/each}}
+{{!-- Quang cao  --}}
+<div class="card mb-3 border-0">
+<iframe src="https://adi.admicro.vn/adt/banners/nam2015/4043/min_html5/lanphamthi/2019_05_27/300x600_Godzilla(5)/300x600_Godzilla/300x600_Godzilla.html?url=%2F%2Flg1.logging.admicro.vn%2Fcpx%3Fcov%3D1%26tpn%3D1%26dmn%3Dhttp%253A%252F%252Fkenh14.vn%252F%26cmpg%3D1299093%26items%3D569426%26zid%3D253%26cid%3D-1%26lsn%3D1559487874860%26ce%3D1%26lc%3D5%26cr%3D1542032735%26ui%3D3442032735712118583%26re%3Dhttps%253A%252F%252Favn.innity.com%252Fclick%252F%253Fadid%253D241215%2526zoneid%253D0%2526cb%253D67802%2526url%253Dhttps%25253A%25252F%25252Fwww.cgv.vn%25252Fdefault%25252Fgodzilla-king-of-the-monsters.html%25253Futm_source%25253DInnity%252526utm_medium%25253DKenh14CPD&amp;admid=ads_zone253_banner569426&amp;vast=https%3A%2F%2Fsspapi.admicro.vn%2Fssp_request%2Fvideo%3Fu%3Dkenh14.vn%252F%26z%3D253%26p%3D1%26w%3D650%26h%3D300%26%26lsn%3Dfea825c24cbd5bd57d9c1d52d5dacdc3%26dgid%3Dab3725bef518d6fd3086738fcb67398c%26l%3D5%26loc%3D5%26i%3D3442032735712118583%26isdetail%3D0%26pid%3D%26tags%3D5%26adstype%3D%26vtype%3D8%26vid%3D%26bannerid%3D569426" 
+width="300" frameborder="0" scrolling="no" height="600"></iframe>
+</div>
+<div class="card mb-3 border-0">
+<iframe src="//adi.admicro.vn/adt/banners/nam2015/4043/min_html5/vutathanh/2019_05_14/300x600/300x600/300x600.html?url=%2F%2Flg1.logging.admicro.vn%2Fcpx%3Fcov%3D1%26tpn%3D1%26dmn%3Dhttp%253A%252F%252Fcafef.vn%252F%26cmpg%3D1299066%26items%3D569234%26zid%3D99%26cid%3D-1%26lsn%3D1559486769969%26ce%3D1%26lc%3D5%26cr%3D%26ui%3D%26re%3Dhttp%253A%252F%252Fstellargarden.com.vn%252F%253Futm_source%253DAdMicro%2526utm_medium%253DCPD%2526utm_campaign%253DBDS-QuangMinh&amp;admid=ads_zone99_banner569234&amp;vast=https%3A%2F%2Fsspapi.admicro.vn%2Fssp_request%2Fvideo%3Fu%3Dcafef.vn%252F%26z%3D99%26p%3D1%26w%3D650%26h%3D300%26%26lsn%3D87e2d1e3769ba8cdb70093c902f0d8a3%26dgid%3D8e998eaf0797baa82a41fbde08984214%26l%3D5%26loc%3D5%26i%3D3442032735712118583%26isdetail%3D0%26pid%3D%26tags%3D5%26adstype%3D%26vtype%3D8%26vid%3D%26bannerid%3D569234" 
+width="300" frameborder="0" scrolling="no" height="600"></iframe>
+</div>
+<div class="card mb-3 border-0"></div>
+<iframe src="https://adi.admicro.vn/adt/banners/nam2015/4043/min_html5/hiepnguyenxuan/2019_05_06/300x250_T5-02/300x250_T5-02/300x250_T5-02.html?url=%2F%2Flg1.logging.admicro.vn%2Fadn%3Fdmn%3Dhttp%253A%252F%252Fcafef.vn%252F%26rid%3D5221e197-a044-49a2-825e-62add2bf778c%26lsn%3D1559486769969%26ce%3D1%26lc%3D5%26cr%3D%26ui%3D%26bi%3D0%26cmpg%3D38574%26items%3D143152%26zid%3D10995%26pr%3D14328781776%26cid%3D-1%26tp%3D11%26tpn%3D4%26alg%3D2%26adc_cpa%3D1%26cov%3D1%26re%3Dhttps%253A%252F%252Fwww.facebook.com%252Fnotes%252Fhondafun%252Fhonda-civic-chinh-ph%2525E1%2525BB%2525A5c-m%2525E1%2525BB%25258Di-h%2525C3%2525A0nh-tr%2525C3%2525ACnh%252F2252311231482041%252F%253Futm_source%253Dadmicro_adx%2526utm_campaign%253Dadx%2526utm_content%253Dcafef.vn&amp;admid=adnzone_10995_0_143152" 
+width="300" height="250" frameborder="0" scrolling="no"></iframe>
+</div>
+{{!-- // --}}
+ </div>
+  </div>
+</div>
+
+

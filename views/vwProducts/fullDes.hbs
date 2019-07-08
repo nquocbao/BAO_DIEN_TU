@@ -1,0 +1,53 @@
+{{#section 'css'}}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/css/fileinput.min.css" media="all"
+  rel="stylesheet" type="text/css" />
+{{/section}}
+
+{{#section 'js'}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.js"></script>
+<script
+  src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ezd73nxbzc7bu6e86g2l82jbbffke0mwevwrnyvc5q8h89j6"></script>
+<script>
+  $(function () {
+    tinymce.init({
+      selector: '#txtFullContent',
+      menubar: false,
+      height: 1000,
+     // plugins: 'paste image link autolink lists table media',
+     // toolbar: [
+     //   'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright',
+    //    'forecolor backcolor',
+     //   'table link image media',
+        // 'paste'
+    // ],
+     // image_caption: true,
+    });
+  })
+</script>
+{{/section}}
+  <div class="card shadow">
+    <div class="card-header bg-info text-white text-center py-2"><h3>Xem Bài Viết </h3> </div>
+    <div class="card-body">
+       {{#each this.productFullDes}}
+      <div>
+        <textarea id="txtFullContent" name="FullContent">
+         <h3 style="font-weight:bold" class="card-title">{{TitleName}}</h3>
+    <p class="card-text"><small class="text-muted">{{CatName}} - {{day}}/{{month}}/{{year}} </small></p>
+    <p class="card-text" style="font-weight:bold; font-size:18px;">{{MainContent}}</p>
+    <center><img src="/imgs/{{Avatar}}" class="card-img-top" alt="..."></center> 
+          {{FullContent}}
+          </textarea>
+      </div>
+       {{/each}}
+    </div>
+    <div class="card-footer text-right">
+      <a class="btn btn btn-success" href="/products" role="button">
+                <i class="fa fa-backward"></i>
+                Back
+              </a>
+    </div>
+  </div>
+</form>

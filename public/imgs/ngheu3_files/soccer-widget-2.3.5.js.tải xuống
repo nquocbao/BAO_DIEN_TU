@@ -1,0 +1,132 @@
+var jsonData = '';
+function getParameterByName(name, URL) {
+
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regexS = "[\\/]" + name + "/([^&#]*)";
+    var regex = new RegExp(regexS);
+    var results = regex.exec(URL);
+    if (results == null)
+        return "";
+    else
+        return decodeURIComponent(results[1].split('/')[0]);
+}
+var SoccerWidgetLib = (function () {
+    var pathName = window.location.pathname;
+    var url_ServiceApi = '//baomoi.com/soccer/api/v2/matchlist';
+    var href = window.location.href;
+    var type = href.indexOf("/event/") > 0 ? "event" : "home";
+    var seasonId = getParameterByName('season', pathName);
+    var url = new URL(href);
+    var device = 'desktop';
+    var slideWidth = 160;
+    var maxSlides = 0;
+    var touchEnabled = false;
+    var holder = $('#soccer-widget-holder');
+    loadFile = function (path, type) {
+        if (type === "js") {
+            var fileref = document.createElement('script');
+            fileref.setAttribute("type", "text/javascript");
+            fileref.setAttribute("src", path);
+        } else if (type === "css") {
+            var fileref = document.createElement("link");
+            fileref.setAttribute("rel", "stylesheet");
+            fileref.setAttribute("type", "text/css");
+            fileref.setAttribute("href", path);
+        }
+        document.getElementsByTagName("head")[0].appendChild(fileref);
+    };
+    loadCss = function ()
+    {
+        if (href.indexOf('m.baomoi.com') >= 0
+                || href.indexOf('baomoi.com/soccer/m') >= 0
+                || href.indexOf('soccer.baomoi.com/m') >= 0
+                || (href.indexOf('localhost') > 0 && href.indexOf('/m/') > 0)) {
+            loadFile("//baomoi-static.zadn.vn/soccer/style/css/m-widget-abf-2.3.6.css", "css");
+        } else
+        {
+            loadFile("//baomoi-static.zadn.vn/soccer/style/css/d-widget-abf-2.3.9.css", "css");
+        }
+    };
+    loadMatches = function () {
+        infiniteLoop = false;
+        touchEnabled = false;
+        if (holder.length) {
+            if (href.indexOf('m.baomoi.com') >= 0
+                    || href.indexOf('baomoi.com/soccer/m') >= 0
+                    || href.indexOf('soccer.baomoi.com/m') >= 0
+                    || (href.indexOf('localhost') > 0 && href.indexOf('/m/') > 0)) {
+                device = 'mobile';
+                var windowWidth = $(window).width();
+                var isMobileView = windowWidth < 768;
+                if (isMobileView) {
+                    touchEnabled = true;
+                }
+
+                maxSlides = windowWidth / slideWidth;
+                if (Math.round(maxSlides) >= maxSlides) {
+                    maxSlides = Math.round(maxSlides) + 1;
+                } else {
+                    maxSlides = Math.round(maxSlides) + 2;
+                }
+            } else {
+                slideWidth = 200;
+                maxSlides = 5;
+            }
+
+            
+            
+            if (!jsonData) {
+                $.ajax({
+                    type: 'GET',
+                    url: url_ServiceApi,
+                    data: {type: type, device: device, maxslides: maxSlides, seasonid: seasonId},
+                    success: function (data) {
+                        jsonData = data;                        
+                        loadTemplates(jsonData);
+                    }
+                });
+            } else {
+                loadTemplates(jsonData);
+            }
+        }
+    };
+    loadTemplates = function (localJsonData) {
+        var versionTemplate = 'soccer-widget-2.1.6.html';
+        var templatePath = '//baomoi-static.zadn.vn/soccer/templates/';
+        if (href.indexOf('baomoi.com/soccer/d') >= 0 || href.indexOf('localhost') > 0) {            
+//            templatePath = '/static/template/widget/';
+        }
+        else{
+            localJsonData.hasScheduleLink = true;
+        }
+        $.get(templatePath + versionTemplate, function (template) {
+            var html = Mustache.render(template, localJsonData);
+            $('.soccer-miniBox').remove();
+            holder.append(html);
+            $('#slider-schedule .wrap').bxSlider({
+                pager: false,
+                minSlides: 1,
+                maxSlides: maxSlides,
+                moveSlides: maxSlides - 1,
+                slideWidth: slideWidth,
+                touchEnabled: touchEnabled,
+                infiniteLoop: true,
+                hideControlOnEnd: false,
+                auto: true,
+                stopAutoOnClick: true,
+                speed: 500,
+                pause: 4000
+            });
+        });
+    };
+    return {
+        init: function () {
+            loadCss();
+            loadMatches();
+        }
+    };
+})();
+SoccerWidgetLib.init();
+window.onresize = function () {
+    SoccerWidgetLib.init();
+};

@@ -1,0 +1,44 @@
+<div class="row">
+  {{!-- card trai --}}
+  <div class="col-sm-8">
+    {{#if this.empty}}
+     <p style="font-size:25px; margin-left: 15px; color:red; font-weight:bold;">Không có sản phẩm!!!</p>
+    {{else}}
+    <div class="card border-0">
+  <div class="row no-gutters">
+         {{#each this.searchpro}}
+        <div class="col-md-4 mt-2">
+          <a href="/products/{{ProID}}"><img src="/imgs/{{Avatar}}" class="card-img rounded"></a>
+        </div>
+      <div class=" col-md-7" style="margin-left: 15px;">
+          <h4 class="card-title">
+            <a href="/products/{{ProID}}">{{TitleName}}</a>
+          </h4>
+          <p class="card-text"><small class="text-muted">{{CatName}} - {{day}}/{{month}}/{{year}}</small></p>
+          <p class="card-text" style="font-size:15px;">{{MainContent}}</p>
+        </div>
+            <hr style="width:680px; float: left; margin.top: 2px;">
+         {{/each}}
+      </div>
+{{/if}}
+     
+  </div>
+</div>
+{{!-- card trai --}}
+<div class="col-sm-4">
+    <div class="card border-0">
+  {{!-- Quang cao --}}
+  <div class="card mb-3 border-0">
+<iframe src="https://adi.admicro.vn/adt/banners/nam2015/4043/min_html5/manhnguyentien/2019_05_29/300x600_T5_90/300x600_T5_90/300x600_T5_90.html?url=%2F%2Flg1.logging.admicro.vn%2Fadn%3Fdmn%3Dhttp%253A%252F%252Fcafef.vn%252Ftai-chinh-quoc-te.chn%26rid%3D3eff7516-fa8e-43cc-b62f-8cbc976b1ca4%26lsn%3D1559487491514%26ce%3D1%26lc%3D5%26cr%3D1542032735%26ui%3D3442032735712118583%26bi%3D0%26cmpg%3D38610%26items%3D145379%26zid%3D37662%26pr%3D14542836733%26cid%3D-1%26tp%3D11%26tpn%3D4%26alg%3D2%26adc_cpa%3D1%26cov%3D1%26re%3Dhttp%253A%252F%252Ftieuduong24h.com%252Fsan-pham%253Futm_source%253Dadx%2526utm_medium%253Dcafef.vn%2526utm_content%253D300x600&amp;admid=adnzone_37662_0_145379"
+ width="300" height="600" frameborder="0" scrolling="no"></iframe>
+</div>
+
+<div class="card mb-3 border-0">
+<iframe src="//adi.admicro.vn/adt/banners/nam2015/4043/min_html5/vutathanh/2019_06_20/300x600(1)/300x600/300x600.html?url=%2F%2Flg1.logging.admicro.vn%2Fcpx%3Fcov%3D1%26tpn%3D1%26dmn%3Dhttp%253A%252F%252Fcafef.vn%252F%26cmpg%3D1299102%26items%3D569791%26zid%3D97%26cid%3D-1%26lsn%3D1561074997469%26ce%3D1%26lc%3D5%26cr%3D1542032735%26ui%3D3442032735712118583%26re%3Dhttp%253A%252F%252Fsunplazagrandworld.com%252F%253Futm_source%253DAdMicro%2526utm_medium%253DCPD%2526utm_campaign%253DSunGroup&amp;admid=ads_zone97_banner569791"
+ width="300" frameborder="0" scrolling="no" height="600"></iframe>
+</div>
+
+{{!-- // --}}
+</div>
+  </div>
+</div>

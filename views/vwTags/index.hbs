@@ -1,0 +1,146 @@
+<div>
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#home">Tags</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#menu1">Tags chuyên mục</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#menu2">Tags bài viết</a>
+    </li>
+  </ul>
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div id="home" class="container tab-pane active"><br>
+    {{!--  --}}
+    <form action="" method="post">
+    <div class="card">
+  <h2 class="card-header text-center">
+    Tags 
+  </h2>
+ <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Tên Tag</th>
+       <th scope="col">Loại Tag</th>
+      <th scope="col" class="text-right">
+        <a class="btn btn-outline-success" href="/tags/add" role="button" title="Add">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Add Tags
+        </a>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each this.tag}}
+       <tr>
+           <th scope="row">{{TagID}}</th>
+           <td>{{TagName}}</td>
+            {{#if_eq TypeTag 1}}
+            <td>Tag Chuyên mục</td>
+            {{/if_eq}}
+            {{#if_eq TypeTag 2}}
+            <td>Tag Bài viết</td>
+            {{/if_eq}}
+           <td class="text-right">
+              <a class="btn btn-primary btn-sm" href="/tags/edit/{{TagID}}" role="button" title="Edit">
+                   <i class="fa fa-pencil" aria-hidden="true"></i>
+                </a>
+                 <button class="btn btn-danger btn-sm" type="submit" title="Delete" formaction="/tags/delete/{{TagID}}">
+                &nbsp;<i class="fa fa-trash"></i>&nbsp;
+              </button>         
+           </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>
+</form>
+    {{!--  --}}
+    </div>
+    <div id="menu1" class="container tab-pane fade"><br>
+      {{!--  --}}
+      <div class="card">
+  <h2 class="card-header text-center">
+    Tags Categories
+  </h2>
+ <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Tên Tag</th>
+       <th scope="col">Loại chuyên mục</th>
+      <th scope="col" class="text-right">
+        <a class="btn btn-outline-success" href="/tags/addTagsCategories" role="button" title="Add">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Add Tags
+        </a>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each this.tagcateg}}
+       <tr>
+           <th scope="row">{{TagID}}</th>
+           <td>{{TagName}}</td>
+            <td>{{CatName}}</td>
+           <td class="text-right">
+              <a class="btn btn-primary btn-sm" href="/tags/edit/{{id}}/tagcategories" role="button" title="Edit">
+                   <i class="fa fa-pencil" aria-hidden="true"></i>
+                </a>
+           </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>
+      {{!--  --}}
+    </div>
+    <div id="menu2" class="container tab-pane fade"><br>
+    {{!--  --}}
+ <div class="card">
+  <h2 class="card-header text-center">
+    Tags Categories
+  </h2>
+ <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Tên Tag</th>
+       <th scope="col">Tên Bài viết</th>
+      <th scope="col" class="text-right">
+        <a class="btn btn-outline-success" href="/tags/addTagsProducts" role="button" title="Add">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Add Tags
+        </a>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each this.tagpro}}
+       <tr>
+           <th scope="row">{{TagID}}</th>
+           <td>{{TagName}}</td>
+            <td>{{ProID}}-{{TitleName}}</td>
+           <td class="text-right">
+              <a class="btn btn-primary btn-sm" href="/tags/edit/{{id}}/tagproducts" role="button" title="Edit">
+                   <i class="fa fa-pencil" aria-hidden="true"></i>
+                </a>
+           </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>
+    {{!--  --}}
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
